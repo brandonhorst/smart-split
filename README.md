@@ -21,10 +21,10 @@ split(input, splitOn)
 `smart-split` will always return the split portions of the string, interspersed with the split-on portions of the string.
 
 ```js
-split('a b c', ' ') // ['a', ' ', 'b', ' ', 'c']
-split('a b c', / /) // ['a', ' ', 'b', ' ', 'c']
-String.prototype.split('a b c', ' ') // ['a', 'b', 'c']
-String.prototype.split('a b c', / /) // ['a', 'b', 'c']
+split('a b c', ' ')   // ['a', ' ', 'b', ' ', 'c']
+split('a bxc', / |x/) // ['a', ' ', 'b', 'x', 'c']
+'a b c'.split(' ')    // ['a', 'b', 'c']
+'a bxc'.split(/ |x/)  // ['a', 'b', 'c']
 ```
 
 `String.prototype.split()` has weird behavior with matching parentheses, which makes predicting the output for unknown `RegExp` input difficult. `smart-split` ignores matching parens, and always outputs the full matched string.
@@ -33,9 +33,9 @@ String.prototype.split('a b c', / /) // ['a', 'b', 'c']
 split('a b c', / /)     // ['a', ' ', 'b', ' ', 'c']
 split('a b c', /( )/)   // ['a', ' ', 'b', ' ', 'c']
 split('a b c', /( )()/) // ['a', ' ', 'b', ' ', 'c']
-String.prototype.split('a b c', / /)     // ['a', 'b', 'c']
-String.prototype.split('a b c', /( )/)   // ['a', ' ', 'b', ' ', 'c']
-String.prototype.split('a b c', /( ())/) // ['a', ' ', '', 'b', ' ', '', 'c']
+'a b c'.split(/ /)      // ['a', 'b', 'c']
+'a b c'.split(/( )/)    // ['a', ' ', 'b', ' ', 'c']
+'a b c'.split(/( ())/)  // ['a', ' ', '', 'b', ' ', '', 'c']
 ```
 
 These two features mean:
