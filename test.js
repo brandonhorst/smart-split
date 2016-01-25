@@ -25,7 +25,7 @@ describe('smart-split', function () {
     expect(split('test test test', / /)).to.eql(['test', ' ', 'test', ' ', 'test'])
   })
 
-  it('splits a string properly with a regex with matching parens', function () {
+  it('splits a string properly with a regex with capturing groups', function () {
     expect(split('a ', /((a)( ))/)).to.eql(['', 'a ', ''])
     expect(split('a a ', /((a)( ))/)).to.eql(['', 'a ', '', 'a ', ''])
     expect(split('test', /((a)( ))/)).to.eql(['test'])
@@ -42,5 +42,15 @@ describe('smart-split', function () {
     expect(split('xxxx', /xx/)).to.eql(['', 'xx', '', 'xx', ''])
     expect(split('testxxxtest', /xx/)).to.eql(['test', 'xx', 'xtest'])
     expect(split('testxxxxtest', /xx/)).to.eql(['test', 'xx', '', 'xx', 'test'])
+  })
+
+  it('splits a string properly if a capturing group specifier is provided', function () {
+    expect(split('testxxtest', /test(x)/, 1)).to.eql(['test', 'x', 'xtest'])
+  })
+
+  it('throws for zero-width captures', function () {
+    expect(function () {
+      expect(split('xx', /\b/)).to.eql(['', '', 'xx', '', ''])
+    }).to.throw(Error)
   })
 })
