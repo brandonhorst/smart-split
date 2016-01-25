@@ -45,12 +45,20 @@ describe('smart-split', function () {
   })
 
   it('splits a string properly if a capturing group specifier is provided', function () {
-    expect(split('testxxtest', /test(x)/, 1)).to.eql(['test', 'x', 'xtest'])
+    expect(split('testxxtest', /test(x)/, 1)).to.eql(['', 'testx', 'xtest'])
   })
 
   it('throws for zero-width captures', function () {
     expect(function () {
-      expect(split('xx', /\b/)).to.eql(['', '', 'xx', '', ''])
+      split('xx', /\b/)
+    }).to.throw(Error)
+
+    expect(function () {
+      split('xx', /$/)
+    }).to.throw(Error)
+
+    expect(function () {
+      split('xx', /^/)
     }).to.throw(Error)
   })
 })

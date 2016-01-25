@@ -1,6 +1,4 @@
-module.exports = function split (input, strOrRegex, capturingGroup) {
-  capturingGroup = capturingGroup || 0
-
+module.exports = function split (input, strOrRegex) {
   var results = []
 
   if (strOrRegex instanceof RegExp) {
@@ -8,12 +6,8 @@ module.exports = function split (input, strOrRegex, capturingGroup) {
     var oldIndex = 0
     var match
     while ((match = regex.exec(input))) {
-      if (capturingGroup === 0) {
-        results.push(input.substring(oldIndex, match.index))
-        results.push(match[0])
-      } else {
-        
-      }
+      results.push(input.substring(oldIndex, match.index))
+      results.push(match[0])
       if (match.index === regex.lastIndex) throw new Error('No zero-width captures allowed')
       oldIndex = match.index + match[0].length
     }
