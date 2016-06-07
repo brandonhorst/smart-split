@@ -27,6 +27,7 @@
   "homepage": "https://github.com/brandonhorst/smart-split",
   "devDependencies": {
     "chai": "^2.1.2",
-    "mocha": "^2.2.1"
+    "mocha": "^2.2.1",
+    "standard": "^7.1.2"
   }
 }
