@@ -1,7 +1,11 @@
+function isRegExp (potentialRegex) {
+  return Object.prototype.toString.call(potentialRegex) === '[object RegExp]'
+}
+
 module.exports = function split (input, strOrRegex) {
   var results = []
 
-  if (strOrRegex instanceof RegExp) {
+  if (isRegExp(strOrRegex)) {
     var regex = new RegExp(strOrRegex.toString().slice(1, -1), 'g')
     var oldIndex = 0
     var match
